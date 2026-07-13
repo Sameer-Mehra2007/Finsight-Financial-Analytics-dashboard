@@ -1,9 +1,0 @@
-#python
-#streamlit
-#pandas
-#numpy
-#matplotlib
-#yfinance
-#scikit-learn
-#sql
-#excel
