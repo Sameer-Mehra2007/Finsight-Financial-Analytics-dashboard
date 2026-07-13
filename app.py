@@ -112,10 +112,12 @@ elif page == "Stock Tracker":
             st.divider()
         if ticker:
             with st.spinner("Fetching stock data..."):
+                
                 df_stock = fetch_stock_data(ticker, period)
 
                 if df_stock.empty:
-                    st.error("Failed to fetch stock data. Please check the symbol and try again.")
+                   st.warning("Failed to fetch stock data. Please check the symbol and try again.\n\n"
+                              "Try symbol like TCS.NS, INFY.NS, AAPL, MSFT etc. Please check your internet connection.")
                 else:
                     st.success(f"Stock data fetched successfully of {ticker}")
                     st.divider()
@@ -140,7 +142,7 @@ elif page == "Stock Tracker":
                     xaxis_rangeslider_visible=False)
                     
                     st.plotly_chart(fig_stock, use_container_width=True)
-                    
+                
                     st.divider()
                     
                     st.subheader("Next Week Stock Price Prediction")
