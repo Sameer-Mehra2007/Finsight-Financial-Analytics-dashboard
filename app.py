@@ -116,8 +116,9 @@ elif page == "Stock Tracker":
                 df_stock = fetch_stock_data(ticker, period)
 
                 if df_stock.empty:
-                   st.warning("Failed to fetch stock data. Please check the symbol and try again.\n\n"
-                              "Try symbol like TCS.NS, INFY.NS, AAPL, MSFT etc. Please check your internet connection.")
+                   st.warning("⚠Failed to fetch stock data. Please check the symbol and try again.\n\n"
+                              "Try symbol like TCS.NS, INFY.NS, AAPL, MSFT etc. Please check your internet connection."
+                              )
                 else:
                     st.success(f"Stock data fetched successfully of {ticker}")
                     st.divider()
