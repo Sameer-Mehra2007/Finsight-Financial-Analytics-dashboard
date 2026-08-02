@@ -1,16 +1,156 @@
 import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
+#import streamlit_authenticator as stauth
+#import yaml
+
+#from yaml.loader import SafeLoader
+#st.set_page_config(
+ #   page_title="Finsight", page_icon=":bar_chart:", layout="wide"
+#)
 from data_manager import save_to_db, run_query
 from data_processor import load_and_clean_data, calculate_kpis
 from charts import revenue_expense_chart, profit_bar_chart #, correlation_heatmap
 from ml_predictor import predict_next_month_revenue,predict_stock_trend
 from stock_fetcher import fetch_stock_data
-st.set_page_config(
-    page_title="Finsight", page_icon=":bar_chart:", layout="wide"
-)
+from database import create_users_table
+#from auth import signup, login
+import auth
 
-#st.title("Finsight :- Financial Analytics Dashboard")
+print("AUTH PATH =", auth.__file__)
+
+signup = auth.signup
+login = auth.login
+st.set_page_config( page_title="Finsight",
+    page_icon="📊",
+    layout="wide")
+create_users_table()
+
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if "username" not in st.session_state:
+    st.session_state.username = ""
+
+if not st.session_state.logged_in:
+
+    #st.title("📊 Welcome to Finsight")
+    st.markdown("""
+    <style>
+
+    .main{
+        background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    }
+
+    .login-box{
+        background:rgba(255,255,255,0.08);
+        padding:35px;
+        border-radius:20px;
+        backdrop-filter:blur(12px);
+        border:1px solid rgba(255,255,255,0.15);
+    }
+
+    .title{
+    text-align:center;
+    font-size:50px;
+    font-weight:900;
+    color:#FF671F;
+    text-shadow:2px 2px 8px rgba(0,0,0,0.2);
+}
+
+    .subtitle{
+        text-align:center;
+        color:#d1d5db;
+        font-size:18px;
+    }
+
+    .footer{
+        text-align:center;
+        color:#9ca3af;
+    }
+
+    </style>
+    """,unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="title">
+
+    📊 Welcome to FINSIGHT
+
+    </div>
+
+    <div class="subtitle">
+
+    AI Powered Financial Analytics Platform
+
+    </div>
+
+    <br>
+
+    """,unsafe_allow_html=True)
+    with st.container(border=True):
+        option = st.radio(
+            "Choose",
+            ["Login", "Create Account"],
+            horizontal=True
+        )
+    
+        if option == "Login":
+
+            username = st.text_input("Username")
+            password = st.text_input(
+                "Password",
+                type="password"
+            )
+
+            if st.button("Login"):
+
+                #if login(username, password):
+                result = login(username, password)
+                st.write(result)
+                if result:
+                    st.session_state.logged_in = True
+                    st.session_state.username = username
+
+                    st.success(f"Welcome, {username}")
+                    st.rerun()
+                
+                
+                else:
+                    st.error("Invalid username or password")
+
+        else:
+
+            new_user = st.text_input("Username")
+            email = st.text_input("Email")
+            new_pass = st.text_input(
+                "Password",
+                type="password"
+            )
+
+            if st.button("Create Account"):
+
+                if signup(new_user, email, new_pass):
+                    st.success("Account Created Successfully!")
+                else:
+                    st.error("Username or Email already exists.")
+        st.markdown("---")
+
+        st.caption(
+        "© 2026 Finsight • Secure Financial Analytics Platform"
+        )
+    st.stop()
+st.sidebar.success(
+        f"Welcome, {st.session_state.username} 👋"
+                )
+    
+if st.sidebar.button("🚪 Logout"):
+    st.session_state.logged_in = False
+    st.session_state.username = ""
+    st.rerun()
+
+#THE MAIN DASHBOARD CODE STARTS HERE
+#st.title("Finsight :- Financial Analytics Dashboard")    
 st.markdown("""
     <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');

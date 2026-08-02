@@ -34,6 +34,64 @@ finsight/
 |--stock_fetcher.py     #live stock data via yfinance
 |--ml_predictor.py      #Revenue and stock forecasting
 |--charts.py            #Chart generation functions
-|--requirements.py      #python dependencies
+|--requirements.txt      #python dependencies
 |--.streamlit/config.toml   #Customer theme
 |-- Book2.CSV               #Sample dataset
+
+##Screenshots
+## 📸 Screenshots
+
+### 🔐 Login Page
+
+<img width="100%" alt="Login Page" src="images/login.png">
+
+---
+
+### 📊 Revenue Dashboard
+
+<img width="100%" alt="Revenue Dashboard" src="images/dashboard.png">
+
+---
+
+### 📈 Stock Tracker
+<img width="100%" alt="Stock Tracker" src="images/stocktracker.png">
+<img width="100%" alt="Stock Candle Graph" src="images/stocks.png">
+
+## 🤖 Machine Learning
+
+Finsight uses Scikit-learn's Linear Regression model for:
+
+- Revenue Forecasting
+- 7-Day Stock Trend Prediction
+
+## 🗄 Database
+
+SQLite stores:
+
+|-- Registered Users
+|-- Revenue Dataset
+|-- SQL Insights
+
+Sample SQL Queries
+
+|-- Top Revenue Months
+|-- Average Profit
+|-- Total Expenses
+
+## 🚀 Future Improvements
+
+- AI Financial Insights
+- Advanced Stock Prediction Models
+- PDF Report Generation
+- Dark Mode
+- User Profile Management
+- Cloud Deployment
+
+## 👨‍💻 Author
+
+**Sameer Mehra**
+
+Python Developer | Data Analytics Enthusiast
+
+GitHub:
+https://github.com/Sameer-Mehra2007
